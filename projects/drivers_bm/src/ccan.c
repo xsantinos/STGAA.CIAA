@@ -16,7 +16,7 @@
 /*==================[internal functions definition]==========================*/
 
 /*==================[external functions definition]==========================*/
-void CCAN_PORT_Init(void)
+void CCAN0_PORT_Init(void)
 {
 	SystemCoreClockUpdate();
 	Chip_Clock_SetBaseClock(CLK_BASE_APB3, CLKIN_IDIVC, true, false);

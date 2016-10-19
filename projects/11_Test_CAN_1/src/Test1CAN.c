@@ -147,7 +147,7 @@ int main(void)
 {
 	InitGPIO_EDUCIAA_Teclas();
 	InitGPIO_EDUCIAA_Leds();
-	CCAN_PORT_Init();
+	CCAN0_PORT_Init();
 
 
 	CCAN_MSG_OBJ_T send_obj;
@@ -188,8 +188,8 @@ int main(void)
 			rgb.green=1;
 			rgb.red=1;
 			ToggleLedRGB(&rgb);
-			Chip_CCAN_Send(LPC_C_CAN0, CCAN_MSG_IF1, true, &send_obj);
-			Chip_CCAN_AddReceiveID(LPC_C_CAN0, CCAN_MSG_IF1, CCAN_RX_MSG_ID);
+//			Chip_CCAN_Send(LPC_C_CAN0, CCAN_MSG_IF1, true, &send_obj);
+//			Chip_CCAN_AddReceiveID(LPC_C_CAN0, CCAN_MSG_IF1, CCAN_RX_MSG_ID);
 		}
 
 		else

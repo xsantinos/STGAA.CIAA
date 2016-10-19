@@ -26,7 +26,7 @@
 
 /*==================[external functions declaration]=========================*/
 
-void CCAN_PORT_Init();
+void CCAN0_PORT_Init();
 
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */
