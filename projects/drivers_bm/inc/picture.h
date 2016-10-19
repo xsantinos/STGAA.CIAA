@@ -20,8 +20,8 @@
 // *********************
 struct typePicture
 {
-	const char windowName[10];
-	const char name[10];
+	char windowName[10];
+	char name[10];
 	const uint8_t* bitmap;
 	uint16_t xPos;
 	uint16_t yPos;

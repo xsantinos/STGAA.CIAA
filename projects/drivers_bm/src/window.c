@@ -13,14 +13,14 @@
 #include "window.h"
 
 #include "string.h"
-#include "GLCDgui.h"
-#include "GLCDPrimitives.h"
-#include "GLCDLowLevel.h"
-#include "GLCDColor.h"
+//#include "GLCDgui.h"
+//#include "GLCDPrimitives.h"
+//#include "GLCDLowLevel.h"
+//#include "GLCDColor.h"
 #include "SystemFont5x7.h"
 #include "SysFont3x5.h"
 #include "GLCDFonts.h"
-#include "GLCDguiEvent.h"
+//#include "GLCDguiEvent.h"
 
 #ifndef NULL
 #define NULL	0
@@ -36,7 +36,7 @@
 
 /*==================[internal data declaration]==============================*/
 WList WIndex;
-TWindow* ActiveWindow;
+static TWindow* ActiveWindow;
 /*==================[internal functions declaration]=========================*/
 
 /*==================[internal data definition]===============================*/
@@ -79,15 +79,13 @@ void GUI_Window_Create ( char* _name, uint8_t* _color, char* _text )
 void GUI_Window_Draw ( char* windowName )
 {
     uint8_t xi, xf, yi, yf;
-
-
     //Search window in list in case we want to draw a window that isn't the active one
-    if (strcmp(ActiveWindow->name, windowName) != 1)
+    if (strcmp(ActiveWindow->name, windowName) != 0)
     {
     	uint8_t i;
         for (i=0; i < WIndex.N_Windows; i++)
         {
-        	if (strcmp(WIndex.Windows[i].name, windowName))
+        	if (strcmp(WIndex.Windows[i].name, windowName) == 0)
         	{
         		ActiveWindow = &WIndex.Windows[i];
         		break;
@@ -113,7 +111,7 @@ void GUI_Window_Draw ( char* windowName )
         // Draw window name
         GLCDPrimitives_FillRect (xi, yi, GLCDLowLevel_DISPLAY_WIDTH, 8, BLACK);
 
-        ActiveWindow = &WIndex.Windows[0];
+//        ActiveWindow = &WIndex.Windows[0];
     	GLCD_SelectFont(System5x7, WHITE);
     	GLCD_CursorFreeTo(1,1);
     	GLCD_FreePuts( ActiveWindow->text );
@@ -127,7 +125,7 @@ void GUI_Window_Draw ( char* windowName )
         // Draw window name
         GLCDPrimitives_FillRect (xi, yi, GLCDLowLevel_DISPLAY_WIDTH, 8, WHITE);
 
-        ActiveWindow = &WIndex.Windows[0];
+//        ActiveWindow = &WIndex.Windows[0];
         GLCD_SelectFont(System5x7, BLACK);
     	GLCD_CursorFreeTo(1,1);
     	GLCD_FreePuts( ActiveWindow->text );
@@ -194,15 +192,19 @@ void GUI_Window_AddText (char* _windowName, char* _name, uint16_t _xPos, uint16_
 {
 	TText* pText;
 	TWindow* pWin;
-
 	uint8_t i;
+	uint8_t N;
     for (i=0; i < WIndex.N_Windows; i++)
    	{
-       	if (WIndex.Windows[i].name == _windowName)
+    	if (strcmp(WIndex.Windows[i].name, _windowName) == 0)
        	{
        		pWin = &WIndex.Windows[i];
        		pText = &pWin->WindowObjects.Texts[pWin->WindowObjects.N_Texts];
        		GUI_Text_Create(pText, _windowName, _name, _xPos, _yPos, _fontName, _fontColor, _text);
+
+       		N = WIndex.Windows[i].WindowObjects.N_Texts;
+       		WIndex.Windows[i].WindowObjects.Texts[N] = *pText;
+       		WIndex.Windows[i].WindowObjects.N_Texts++;
        		break;
        	}
     }
@@ -218,7 +220,7 @@ void GUI_Window_AddButton ( char* _windowName, char* _name, uint16_t _height, ui
 	uint8_t i;
     for (i=0; i < WIndex.N_Windows; i++)
    	{
-       	if (WIndex.Windows[i].name == _windowName)
+       	if (strcmp(WIndex.Windows[i].name, _windowName))
        	{
        		pWin = &WIndex.Windows[i];
        		pButton = &pWin->WindowObjects.Buttons[pWin->WindowObjects.N_Buttons];
@@ -236,15 +238,18 @@ void GUI_Window_AddPicture (char* _windowName, char* _name, uint16_t _xPos, uint
 	TPicture* pPicture;
 	TWindow* pWin;
 
-	uint8_t i;
+	uint8_t i, N;
     for (i=0; i < WIndex.N_Windows; i++)
    	{
-       	if (WIndex.Windows[i].name == _windowName)
+       	if (strcmp(WIndex.Windows[i].name, _windowName) == 0)
        	{
        		pWin = &WIndex.Windows[i];
        		pPicture = &pWin->WindowObjects.Pictures[pWin->WindowObjects.N_Pictures];
-       		GUI_Picture_Create(pPicture, _windowName, _name, _xPos, _yPos, _width, _height,
-       				_bitmap, _color);
+       		GUI_Picture_Create(pPicture, _windowName, _name, _xPos, _yPos, _width, _height, _bitmap, _color);
+
+       		N = WIndex.Windows[i].WindowObjects.N_Pictures;
+       		WIndex.Windows[i].WindowObjects.Pictures[N] = *pPicture;
+       		WIndex.Windows[i].WindowObjects.N_Pictures++;
        		break;
        	}
     }

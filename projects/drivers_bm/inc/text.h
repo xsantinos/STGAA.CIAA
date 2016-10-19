@@ -23,11 +23,11 @@
 // *********************
 struct typeText
 {
-	const char windowName[10];
-	const char name[10];
+	char windowName[10];
+	char name[10];
 	uint16_t xPos;
 	uint16_t yPos;
-	const char fontName[15];
+	char fontName[15];
 	uint8_t fontColor;
 	char text[MAX_TEXT_LENGHT];
 };

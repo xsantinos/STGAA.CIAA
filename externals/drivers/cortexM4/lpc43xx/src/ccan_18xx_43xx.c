@@ -34,7 +34,7 @@
 /*****************************************************************************
  * Private types/enumerations/variables
  ****************************************************************************/
-
+#define NULL 0
 /*****************************************************************************
  * Public types/enumerations/variables
  ****************************************************************************/
@@ -157,12 +157,8 @@ void Chip_CCAN_ClearStatus(LPC_CCAN_T *pCCAN, uint32_t val)
 }
 
 /* Set a message into the message object in message RAM */
-void Chip_CCAN_SetMsgObject(LPC_CCAN_T *pCCAN,
-							CCAN_MSG_IF_T IFSel,
-							CCAN_TRANSFER_DIR_T dir,
-							bool remoteFrame,
-							uint8_t msgNum,
-							const CCAN_MSG_OBJ_T *pMsgObj)
+void Chip_CCAN_SetMsgObject(LPC_CCAN_T *pCCAN, CCAN_MSG_IF_T IFSel, CCAN_TRANSFER_DIR_T dir,
+							bool remoteFrame, uint8_t msgNum, const CCAN_MSG_OBJ_T *pMsgObj)
 {
 	uint16_t *pData;
 	uint32_t msgCtrl = 0;

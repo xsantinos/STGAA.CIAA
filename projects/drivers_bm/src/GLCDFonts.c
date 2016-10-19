@@ -49,7 +49,7 @@ uint8_t FontRead(const uint8_t* ptr) {  // note this is a static function
  * --------------------------------------------------------------------------------------
  * */
 
-void GLCD_SelectFont(const uint8_t* font,uint8_t color) {
+void GLCD_SelectFont(const uint8_t* font, uint8_t color) {
 	Font = font;
 	FontColor = color;
 }

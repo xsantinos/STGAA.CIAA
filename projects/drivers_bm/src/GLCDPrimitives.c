@@ -41,7 +41,7 @@ void SetPage(uint8_t x, uint8_t page, uint8_t val)
  * 	1) Initial Code
  * --------------------------------------------------------------------------------------
  * */
-void GLCDPrimitives_ClearScreen(uint8_t color)
+void GLCDPrimitives_ClearScreen(uint32_t color)
 {
 	uint8_t i,j;
 	for (i = 0; i < GLCDLowLevel_DISPLAY_WIDTH; i++)

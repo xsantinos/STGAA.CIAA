@@ -19,8 +19,8 @@
 void Inicializar_RIT(void)
 {
 	Chip_RIT_Init(LPC_RITIMER);
-	NVIC_ClearPendingIRQ(RITIMER_IRQn);
-	NVIC_EnableIRQ(RITIMER_IRQn);
+//	NVIC_ClearPendingIRQ(RITIMER_IRQn);
+//	NVIC_EnableIRQ(RITIMER_IRQn);
 }
 
 

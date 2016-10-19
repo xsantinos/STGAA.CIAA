@@ -14,7 +14,7 @@
 #define _WINDOW_H_
 
 #include "stdint.h"
-#include "GLCDguiEvent.h"
+//#include "GLCDguiEvent.h"
 #include "button.h"
 #include "picture.h"
 #include "text.h"
@@ -79,7 +79,18 @@ void GUI_Window_Draw ( char* windowName );
 
 void GUI_Window_RedrawActiveWindow ();
 
-void GUI_Window_RaiseEvent (GLCDgui_TEvent* event);
+//void GUI_Window_RaiseEvent (GLCDgui_TEvent* event);
+
+void GUI_Window_AddText (char* _windowName, char* _name, uint16_t _xPos, uint16_t _yPos,
+						 char* _fontName, uint8_t _fontColor, char* _text);
+
+void GUI_Window_AddButton ( char* _windowName, char* _name, uint16_t _height, uint16_t _width,
+							uint16_t _xPos,	uint16_t _yPos, uint8_t _color, char* _fontName,
+							uint8_t _fontColor, char* _text);
+
+void GUI_Window_AddPicture (char* _windowName, char* _name, uint16_t _xPos, uint16_t _yPos,
+		  	  	  	  	  	uint16_t _width, uint16_t _height, const uint8_t* _bitmap,
+		  	  	  	  	  	uint8_t _color );
 
 void GUI_Window_GetText (const char* const textName, TText* pText);
 

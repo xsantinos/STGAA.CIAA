@@ -37,21 +37,22 @@
 
 /*==================[external functions definition]==========================*/
 
-struct tex{
-	char name[10];
-	uint8_t i;
-};
-typedef struct tex TEXTO;
-
 int main(void)
 {
 	GUI_StartLibrary ();
-	char name[10] = "hola";
+	char Login[10] = "Login";
 	uint8_t* color = BLACK;
-	char text[10] = "texto";
+	char text[10] = "ELECCIONES";
 
-	GUI_Window_Create ( name, color, text );
-	GUI_Window_Draw ("hola");
+	GUI_Window_Create ( Login, color, text );
+	GUI_Window_AddPicture (Login, "Logdraw", 5, 23, 48, 40, InicioBitmaps, BLACK );
+	GUI_Window_AddText (Login, "row1", 60, 14, "SystemFont5x7", WHITE, "RECETA  : ....");
+	GUI_Window_AddText (Login, "row2", 60, 22, "SystemFont5x7", WHITE, "PRODUCTO: ....");
+	GUI_Window_AddText (Login, "row3", 60, 30, "SystemFont5x7", WHITE, "DOSIS   : ....");
+	GUI_Window_AddText (Login, "row4", 60, 38, "SystemFont5x7", WHITE, "VOLUMEN : ....");
+	GUI_Window_AddText (Login, "row5", 60, 46, "SystemFont5x7", WHITE, "REGENTE : ....");
+	GUI_Window_AddText (Login, "row6", 60, 54, "SystemFont5x7", WHITE, "OPERARIO: ....");
+	GUI_Window_Draw (Login);
 
 //	GLCDLowLevel_SwapBuffer ();
 	while(1)

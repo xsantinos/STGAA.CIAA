@@ -16,7 +16,7 @@
 #include <stdint.h>
 #include "GLCDColor.h"
 
-void GLCDPrimitives_ClearScreen (uint8_t color);
+void GLCDPrimitives_ClearScreen (uint32_t color);
 void GLCDPrimitives_DrawBitmap (const uint8_t * bitmap, uint8_t x, uint8_t y, uint8_t color);
 void GLCDPrimitives_SetDot (uint8_t x, uint8_t y, uint8_t color);
 void GLCDPrimitives_DrawLine (uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2, uint8_t color);

@@ -20,14 +20,14 @@
 // *********************
 struct Button
 {
-	const char windowName[10];
-	const char name[10];
+	char windowName[10];
+	char name[10];
 	uint16_t height;
 	uint16_t width;
 	uint16_t xPos;
 	uint16_t yPos;
 	uint8_t color;
-	const char fontName[15];
+	char fontName[15];
 	uint8_t fontColor;
 	char text[16];
 //	void (*OnClickHandler) (void* voidPointerParams);

@@ -12,9 +12,10 @@
 
 
 #include "GLCDgui.h"
-#include "window.h"
+//#include "window.h"
 #include "SystemFont5x7.h"
-
+#include "GLCDLowLevel.h"
+#include "GLCDPrimitives.h"
 
 // ******************
 // Private attributes

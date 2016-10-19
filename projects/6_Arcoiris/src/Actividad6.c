@@ -6,6 +6,7 @@
 #include "teclas.h"
 #include "timer.h"
 /*==================[macros and definitions]=================================*/
+#define TRUE 1
 #define base_de_tiempo 1
 #define t_color 250
 #define t_periodo 20
@@ -20,7 +21,7 @@ uint8_t contador_toggle = 0;
 uint32_t contador_color = 0;
 uint8_t contador_periodo = 0;
 uint8_t color = 0;
-bool flag_T1 = TRUE;
+uint8_t flag_T1 = TRUE;
 
 uint8_t Paleta_R[N_colores] = {20,  0,   0,  20,  20,   0,  20,  20, 20,  20,  20,  15,   15,   20,   20,   15};
 uint8_t Paleta_G[N_colores] = {0,  20,   0,  20,   0,  20,  20,  20, 5,  10,   5,  20,  8,   0,   15,   15};

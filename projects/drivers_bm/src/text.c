@@ -11,12 +11,13 @@
 */
 
 #include "text.h"
-#include "GLCDgui.h"
+//#include "GLCDgui.h"
 
-#include "GLCDLowLevel.h"
-#include "GLCDPrimitives.h"
+#include "string.h"
+//#include "GLCDLowLevel.h"
+//#include "GLCDPrimitives.h"
 #include "GLCDFonts.h"
-#include "GLCDColor.h"
+//#include "GLCDColor.h"
 #include "SystemFont5x7.h"
 #include "SysFont3x5.h"
 

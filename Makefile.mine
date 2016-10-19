@@ -94,4 +94,5 @@ BOARD          ?=  edu_ciaa_nxp
 #PROJECT_PATH ?= projects$(DS)3_psicodelia_baremetal
 #PROJECT_PATH ?= projects$(DS)8_Test_Display
 #PROJECT_PATH ?= projects$(DS)9_Test_Display2
-PROJECT_PATH ?= projects$(DS)10_Test_Display3
+#PROJECT_PATH ?= projects$(DS)10_Test_Display3
+PROJECT_PATH ?= projects$(DS)11_Test_CAN_1
