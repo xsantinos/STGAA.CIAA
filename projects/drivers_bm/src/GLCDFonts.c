@@ -272,7 +272,7 @@ int GLCD_FreePutChar(char c) {
 	// Draw the character
 	uint8_t i;
 	uint8_t j;
-	uint8_t k;
+//	uint8_t k;
 
 	for( i=0; i<bytes; i++) {
 		uint8_t page = i*width;
