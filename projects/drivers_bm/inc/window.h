@@ -21,7 +21,7 @@
 
 #define MAX_WINDOWS 3
 #define WINDOWNAME_LENGTH 10
-#define WINDOWTEXT_LENGTH 15
+#define WINDOWTEXT_LENGTH 21
 
 #define MAX_PIC 4
 #define MAX_TEXT 8
@@ -69,7 +69,7 @@ typedef struct WindowList WList;
 
 void GUI_Window_ListInit ();
 
-void GUI_Window_Create ( char* _name, uint8_t* _color, char* _text );
+void GUI_Window_Create ( char* _name, uint8_t _color, char* _text );
 
 void GUI_Window_ObjectListInit (OList* pOList);
 
@@ -83,6 +83,8 @@ void GUI_Window_RedrawActiveWindow ();
 
 void GUI_Window_AddText (char* _windowName, char* _name, uint16_t _xPos, uint16_t _yPos,
 						 char* _fontName, uint8_t _fontColor, char* _text);
+
+void GUI_Window_EditText (char* _windowName, char* _name, char* _text, uint8_t TextLength);
 
 void GUI_Window_AddButton ( char* _windowName, char* _name, uint16_t _height, uint16_t _width,
 							uint16_t _xPos,	uint16_t _yPos, uint8_t _color, char* _fontName,

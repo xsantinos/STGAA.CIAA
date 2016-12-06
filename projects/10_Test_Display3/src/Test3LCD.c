@@ -41,17 +41,17 @@ int main(void)
 {
 	GUI_StartLibrary ();
 	char Login[10] = "Login";
-	uint8_t* color = BLACK;
-	char text[10] = "ELECCIONES";
+	uint8_t* color = WHITE;
+	char text[10] = "STGAA";
 
 	GUI_Window_Create ( Login, color, text );
 	GUI_Window_AddPicture (Login, "Logdraw", 5, 23, 48, 40, InicioBitmaps, BLACK );
-	GUI_Window_AddText (Login, "row1", 60, 14, "SystemFont5x7", WHITE, "RECETA  : ....");
-	GUI_Window_AddText (Login, "row2", 60, 22, "SystemFont5x7", WHITE, "PRODUCTO: ....");
-	GUI_Window_AddText (Login, "row3", 60, 30, "SystemFont5x7", WHITE, "DOSIS   : ....");
-	GUI_Window_AddText (Login, "row4", 60, 38, "SystemFont5x7", WHITE, "VOLUMEN : ....");
-	GUI_Window_AddText (Login, "row5", 60, 46, "SystemFont5x7", WHITE, "REGENTE : ....");
-	GUI_Window_AddText (Login, "row6", 60, 54, "SystemFont5x7", WHITE, "OPERARIO: ....");
+	GUI_Window_AddText (Login, "row1", 60, 9, "SystemFont5x7", WHITE, "RECETA  : ....");
+	GUI_Window_AddText (Login, "row2", 60, 17, "SystemFont5x7", WHITE, "PRODUCTO: ....");
+	GUI_Window_AddText (Login, "row3", 60, 25, "SystemFont5x7", WHITE, "DOSIS   : ....");
+	GUI_Window_AddText (Login, "row4", 60, 33, "SystemFont5x7", WHITE, "VOLUMEN : ....");
+	GUI_Window_AddText (Login, "row5", 60, 41, "SystemFont5x7", WHITE, "REGENTE : ....");
+	GUI_Window_AddText (Login, "row6", 60, 49, "SystemFont5x7", WHITE, "OPERARIO: ....");
 	GUI_Window_Draw (Login);
 
 //	GLCDLowLevel_SwapBuffer ();

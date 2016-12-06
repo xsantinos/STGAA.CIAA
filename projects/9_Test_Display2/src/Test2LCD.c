@@ -9,12 +9,10 @@
 #include "GLCDgui.h"
 #include "window.h"
 #include "button.h"
-#include "textSlider.h"
 #include "text.h"
 #include "picture.h"
 #include "SysFont3x5.h"
 #include "GLCDguiEvent.h"
-#include "object.h"
 
 
 #include "GLCDColor.h"
@@ -45,7 +43,7 @@ texto T;
 
 int main(void)
 {
-
+	GUI_StartLibrary ();
 	strcpy (T.c, "la vi venir");
 //	GUI_DefineHeapMalloc (pvPortMalloc);
 //	GUI_DefineHeapFree (vPortFree);
@@ -57,23 +55,23 @@ int main(void)
 //	GLCD_FreePuts( T.c );
 //
 //
-//	GLCDPrimitives_DrawLine(20,20,20,50, WHITE);
-//	GLCDPrimitives_DrawLine(20,20,50,50, WHITE);
-//	GLCDPrimitives_DrawLine(50,20,50,50, WHITE);
-//	GLCDPrimitives_DrawRoundRect(70,20,30,30,5, WHITE);
-//	GLCDPrimitives_SetDot(110,50, WHITE);
-//	GLCDPrimitives_DrawRect(10,10,110,50, WHITE);
-//	GLCDPrimitives_SetDot(0,0, WHITE);
-//	GLCDPrimitives_SetDot(0,63, WHITE);
-//	GLCDPrimitives_SetDot(127,0, WHITE);
-//	GLCDPrimitives_SetDot(127,63, WHITE);
-//
-//
-//	GLCDLowLevel_SwapBuffer ();
-//	while(1)
-//		{
-//		asm("nop");
-//		}
+	GLCDPrimitives_DrawLine(20,20,20,50, WHITE);
+	GLCDPrimitives_DrawLine(20,20,50,50, WHITE);
+	GLCDPrimitives_DrawLine(50,20,50,50, WHITE);
+	GLCDPrimitives_DrawRoundRect(70,20,30,30,5, WHITE);
+	GLCDPrimitives_SetDot(110,50, WHITE);
+	GLCDPrimitives_DrawRect(10,10,110,50, WHITE);
+	GLCDPrimitives_SetDot(0,0, WHITE);
+	GLCDPrimitives_SetDot(0,63, WHITE);
+	GLCDPrimitives_SetDot(127,0, WHITE);
+	GLCDPrimitives_SetDot(127,63, WHITE);
+
+
+	GLCDLowLevel_SwapBuffer ();
+	while(1)
+		{
+		asm("nop");
+		}
 }
 /** @} doxygen end group definition */
 /** @} doxygen end group definition */

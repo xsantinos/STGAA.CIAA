@@ -24,7 +24,7 @@
 void GUI_StartLibrary ()
 {
 	GLCDLowLevel_Init ( NORMAL );
-	GLCDPrimitives_ClearScreen ( WHITE );
+	GLCDPrimitives_ClearScreen ( BLACK );
 	GLCDLowLevel_SwapBuffer ();
 }
 

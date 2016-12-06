@@ -51,9 +51,8 @@ SensorsList[index].state=0;
  * @see publicVar()
  * @return 		None
  */
-Status DSC_AddSensorToList(DSC_DESCRIPTOR_T* pDescriptor){
-
-
+Status DSC_AddSensorToList(DSC_DESCRIPTOR_T* pDescriptor)
+{
 	if(RegisteredSensorCount<MAX_NUM_SNS)
 	{
 		SensorsList[RegisteredSensorCount].id=pDescriptor->id;

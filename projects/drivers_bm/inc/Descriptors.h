@@ -48,7 +48,7 @@ typedef struct{
  * @brief Sensor message identifier definitions
  */
 typedef enum {
-	ID_CPU=0,
+	ID_CPU=1,
 	ID_GPS,
 	ID_ANEMOMETER,
 	ID_THERMOHYGROMETER,

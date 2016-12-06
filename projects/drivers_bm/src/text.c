@@ -34,6 +34,11 @@ void GUI_Text_Create (TText* pText, char* _windowName, char* _name, uint16_t _xP
 	pText->fontColor = _fontColor;
 }
 
+void GUI_Text_Edit(TText* pText, char* _text, uint8_t TextLength) //pasar tamaño del texto como argumento
+{
+	strncpy (pText->text, _text, TextLength); // y acá usar strncpy, y como tercer parámetro la cantidad de caracteres a copiar
+}
+
 void GUI_Text_Draw ( TText* pText )
 {
 	// Draw button name

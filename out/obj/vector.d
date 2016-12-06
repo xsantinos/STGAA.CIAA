@@ -1,2 +1,2 @@
-vector.o: projects\11_Test_CAN_1\src\vector.c \
- projects\11_Test_CAN_1\inc/main.h
+vector.o: projects\STGAA_baremetal\src\vector.c \
+ projects\STGAA_baremetal\inc/main.h

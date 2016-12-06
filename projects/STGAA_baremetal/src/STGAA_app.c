@@ -5,10 +5,13 @@
 #include "string.h"
 #include "led.h"
 #include "teclas.h"
-#include "ccan.h"
+#include "Sensor2.h"
+#include "timer.h"
+#include "Display.h"
 
 /*==================[macros and definitions]=================================*/
 #define AskForData_Interval 5000
+#define C_CAN0_IRQn 51
 
 typedef enum{
 	RESTING = 1,
@@ -18,33 +21,11 @@ typedef enum{
 } STATE;
 
 /*==================[internal data declaration]==============================*/
-
-/*==================[en archivo display.c]=========================*/
-void DSP_Init (void)
-{
-	GUI_StartLibrary();
-	GUI_Window_ListInit();
-
-	GUI_Window_Create ( "Start", BLACK, "STGAA-CIAA-NXP" );
-	/*Dibujar esta ventana completa */
-
-	GUI_Window_Create ( "Main", BLACK, "STGAA-CIAA-NXP" );
-	/*Dibujar esta ventana completa*/
-
-	GUI_Window_Draw ("Start");
-}
-
-void DSP_MainMode (void)
-{
-	GUI_Window_Draw ("Main");
-}
-
-void DSP_RefreshDisplay(losdatosdelossensores)
-{
-	/*Armar para que actualice los valores*/
-	// 1-Pasar los datos a char
-	GUI_Window_ChangeText(); // 2- Inventar esto!
-}
+bool event_CANReceived;
+bool event_ConfigReceived;
+bool event_DataReceived;
+bool event_5sec;
+uint8_t RcvMsgCount = 0;
 
 /*==================[internal data definition]===============================*/
 
@@ -52,39 +33,60 @@ void DSP_RefreshDisplay(losdatosdelossensores)
 edu_CIAA_teclado tec;
 CCAN_MSG_OBJ_T msg_buf;
 STATE current_state;
+ENV_ENVIRONMENTAL_T pEnv;
+uint8_t aux;
 /*==================[internal functions definition]==========================*/
 void STGAA_Init(void)
 {
+	event_CANReceived = false;
+	event_ConfigReceived = false;
+	event_DataReceived = false;
+	event_5sec = false;
+
+	InitGPIO_EDUCIAA_Leds();
 	InitGPIO_EDUCIAA_Teclas();
 	tec.T1 = 1;
 	tec.T2 = 1;
 	tec.T3 = 1;
 	tec.T4 = 1;
 
-	CCAN0_PORT_Init();
+	SNS_Init();
 
-	RIT_Init();
-	RIT_SetInterval(AskForData_Interval);
-
-//	GUI_StartLibrary(); EN DISPLAY
 	DSP_Init();
-
+	SNS_SendConfig();
 }
 
 void CAN0_IRQHandler(void)
 {
-	if (entró acá por un mensaje posta)
-	{	event_llegóCAN = true;
-		despertameElMicro();
+	uint32_t can_int = Chip_CCAN_GetIntID(LPC_C_CAN0);
+	aux = can_int;
+	while (can_int != 0) // Mientras sea != 0, significa que hay algún tipo de interrupción
+	{
+
+		if (can_int & CCAN_INT_STATUS)
+		{
+			Chip_CCAN_ClearStatus(LPC_C_CAN0, CCAN_STAT_TXOK);
+			Chip_CCAN_ClearStatus(LPC_C_CAN0, CCAN_STAT_RXOK);
+		}
+
+		if ((1 <= CCAN_INT_MSG_NUM(can_int)) && (CCAN_INT_MSG_NUM(can_int) <= 0x20))
+		{
+			Chip_CCAN_GetMsgObject(LPC_C_CAN0, CCAN_MSG_IF1, can_int, &msg_buf);
+			if (msg_buf.id)
+			{
+				event_CANReceived = true;
+			}
+		}
+		can_int = Chip_CCAN_GetIntID(LPC_C_CAN0);
 	}
 	CCAN0_Clear();
 }
 
 void RIT_IRQHandler(void)
 {
-	event_5sec = true;
-	despertameElMicro();
 	RIT_Clear();
+	event_5sec = true;
+	ToggleLed(LED_VERDE);
 }
 /*==================[external functions definition]==========================*/
 
@@ -93,11 +95,15 @@ int main(void)
 	STGAA_Init();
 
 	while (1){
-		EscaneoTeclado(&tec);
+		Escaneo_Teclado(&tec);
 		if (tec.T1 == 0)
 			break;
 	}
 	current_state = RESTING;
+	DSP_MainMode();
+	SNS_AskForConfig();
+	RIT_Init();
+	RIT_SetInterval(AskForData_Interval);
 
 	for (;;)
 	{
@@ -105,37 +111,49 @@ int main(void)
 		{
 		case RESTING:
 				if (event_5sec) {current_state = REQUESTING_DATA; break;}
-				if (event_rcv_msg) {current_state = PROCESSING_DATA; break;}
-				Sleep();
+				if (event_CANReceived) {current_state = PROCESSING_DATA; break;}
 				break;
 
 		case REQUESTING_DATA:
-				/*Armar mensaje para pedir info a los sensores*/
-				CCAN0_Send_Message (elmensaje);
-				event_5sec = false; //bajar las banderas que me trajeron
+
+				event_5sec = false;
+
+				SNS_AskForData();
 				current_state = RESTING;
 				break;
 
 		case PROCESSING_DATA:
-				/*Armar para leer el mensaje del CCAN, cargarlo en memoria
-				 * y después aumentar un contador que cuando cargo todos
-				 * los sensores, me lleva a refresh.
-				 * OJO!!!! Que primero tengo que chequear si el mensaje es posta
-				 * toddo eso a drivers.*/
-				CCAN0_Read_Message (unespaciodememoriatamañomensaje)
-				mensajes_recibidos++;
-				if(mensajes_recibidos == CANT_DE_SENS) //Armar en define
+
+				event_CANReceived = false;
+
+				if(SNS_ConfigReceived(msg_buf.id))
 				{
-					current_state = REFRESHING_GUI;
-					mensajes_recibidos = 0;
+					event_ConfigReceived = false;
+					SNS_LoadConfig(&msg_buf);
+					current_state = RESTING;
+				}
+				else if (SNS_DataReceived(msg_buf.id))
+				{
+					event_DataReceived = false;
+					if(SNS_LoadData(&msg_buf))
+					{
+						RcvMsgCount++;
+					}
+					if (RcvMsgCount == MAX_NUM_SNS)
+					{	current_state = REFRESHING_GUI;
+						RcvMsgCount = 0;	}
+					else
+						current_state = RESTING;
 				}
 				else
 					current_state = RESTING;
-				event_llegoporCAN = false;
+				msg_buf.id = 0;
 				break;
 
 		case REFRESHING_GUI:
-				DSP_Redibujamela4(lainfodelossensores);
+
+				SNS_GetEnvironmental(&pEnv);
+				DSP_RefreshDisplay(&pEnv);
 				current_state = RESTING;
 				break;
 		}

@@ -13,10 +13,10 @@
 #include "window.h"
 
 #include "string.h"
-//#include "GLCDgui.h"
-//#include "GLCDPrimitives.h"
-//#include "GLCDLowLevel.h"
-//#include "GLCDColor.h"
+#include "GLCDgui.h"
+#include "GLCDPrimitives.h"
+#include "GLCDLowLevel.h"
+#include "GLCDColor.h"
 #include "SystemFont5x7.h"
 #include "SysFont3x5.h"
 #include "GLCDFonts.h"
@@ -60,7 +60,7 @@ void GUI_Window_ObjectListInit (OList* pOList)
 	pOList->N_Buttons = 0;
 }
 
-void GUI_Window_Create ( char* _name, uint8_t* _color, char* _text )
+void GUI_Window_Create ( char* _name, uint8_t _color, char* _text )
 {
 	uint8_t i = (WIndex.N_Windows);
 	_name = strcat (_name,"\n");
@@ -69,7 +69,7 @@ void GUI_Window_Create ( char* _name, uint8_t* _color, char* _text )
 
 	strncpy (WIndex.Windows[i].name, _name, strlen(_name));
 	strncpy (WIndex.Windows[i].text, _text, strlen(_text));
-	WIndex.Windows[i].color = *_color;
+	WIndex.Windows[i].color = _color;
 
 	GUI_Window_ObjectListInit( &WIndex.Windows[i].WindowObjects );
 
@@ -79,13 +79,17 @@ void GUI_Window_Create ( char* _name, uint8_t* _color, char* _text )
 void GUI_Window_Draw ( char* windowName )
 {
     uint8_t xi, xf, yi, yf;
+	char* p;
+//	windowName = strcat (windowName,"\n");
+
     //Search window in list in case we want to draw a window that isn't the active one
     if (strcmp(ActiveWindow->name, windowName) != 0)
     {
     	uint8_t i;
         for (i=0; i < WIndex.N_Windows; i++)
         {
-        	if (strcmp(WIndex.Windows[i].name, windowName) == 0)
+        	p = WIndex.Windows[i].name;
+        	if (strcmp(p, windowName) == 0)
         	{
         		ActiveWindow = &WIndex.Windows[i];
         		break;
@@ -206,6 +210,31 @@ void GUI_Window_AddText (char* _windowName, char* _name, uint16_t _xPos, uint16_
        		WIndex.Windows[i].WindowObjects.Texts[N] = *pText;
        		WIndex.Windows[i].WindowObjects.N_Texts++;
        		break;
+       	}
+    }
+}
+
+void GUI_Window_EditText (char* _windowName, char* _name, char* _text, uint8_t TextLength)
+{
+	TText* pText;
+	TWindow* pWin;
+	uint8_t i,j;
+
+    for (i=0; i < WIndex.N_Windows; i++)
+   	{
+    	if (strcmp(WIndex.Windows[i].name, _windowName) == 0)
+       	{
+       		pWin = &WIndex.Windows[i];
+       		for (j=0; j < pWin->WindowObjects.N_Texts; j++)
+       		{
+           		pText = &pWin->WindowObjects.Texts[j];
+       			if (strcmp(pText->name,_name) == 0)
+       			{
+       				GUI_Text_Edit(pText, _text, TextLength);
+           			WIndex.Windows[i].WindowObjects.Texts[j] = *pText;
+               		break;
+       			}
+       		}
        	}
     }
 }

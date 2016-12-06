@@ -26,23 +26,23 @@ static void SendData (byte _dataval, byte _chipval, byte _dival)
 {
 	// Enable chip
 	if (_chipval==0)
-		MicroInterface_Bit_WriteHigh (5, 16); //CS1
+		MicroInterface_Bit_WriteHigh (LCD_CSEL1_PORT, CSEL1); //CS1
 	else if (_chipval==1)
-		MicroInterface_Bit_WriteHigh (3, 5); //CS2
+		MicroInterface_Bit_WriteHigh (LCD_CSEL2_PORT, CSEL2); //CS2
 
 	// Set write mode
 	if (_dival==0)
-		MicroInterface_Bit_WriteLow (0, 11); // DI
+		MicroInterface_Bit_WriteLow (D_I_PORT, D_I); // DI
 	else if (_dival==1)
-		MicroInterface_Bit_WriteHigh (0, 11); // DI
+		MicroInterface_Bit_WriteHigh (D_I_PORT, D_I); // DI
 
 	EN_DELAY ();
 	MicroInterface_Byte_WriteData (_dataval);
 
 	// Clock data
-	MicroInterface_Bit_WriteHigh (5, 13); //EN
+	MicroInterface_Bit_WriteHigh (EN_PORT, EN); //EN
 	EN_DELAY ();
-	MicroInterface_Bit_WriteLow (5, 13); //EN
+	MicroInterface_Bit_WriteLow (EN_PORT, EN); //EN
 
 	// Disable chip
 	MicroInterface_Bit_WriteLow (LCD_CSEL1_PORT, CSEL1); //CS1
@@ -54,9 +54,9 @@ void GLCDLowLevel_Init(uint8_t invert)
 	MicroInterface_Init();
 
 	// Start LCD control lines in 0
-	MicroInterface_Bit_WriteLow (0, D_I);
-	MicroInterface_Bit_WriteLow (5, R_W);
-	MicroInterface_Bit_WriteLow (5, EN);
+	MicroInterface_Bit_WriteLow (D_I_PORT, D_I);
+	MicroInterface_Bit_WriteLow (R_W_PORT, R_W);
+	MicroInterface_Bit_WriteLow (EN_PORT, EN);
 	MicroInterface_Bit_WriteLow (LCD_CSEL1_PORT, CSEL1);
 	MicroInterface_Bit_WriteLow (LCD_CSEL2_PORT, CSEL2);
 

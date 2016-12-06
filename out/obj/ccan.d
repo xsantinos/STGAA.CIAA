@@ -1,4 +1,4 @@
-ccan.o: projects\drivers_bm\src\ccan.c \
+ccan.o: projects\drivers_bm\src\ccan.c projects/drivers_bm/inc/ccan.h \
  externals/drivers/cortexM4/lpc43xx/inc/chip.h \
  externals/drivers/cortexM4/lpc43xx/inc/sys_config.h \
  externals/drivers/cortexM4/lpc43xx/inc/cmsis.h \
@@ -59,5 +59,4 @@ ccan.o: projects\drivers_bm\src\ccan.c \
  externals/drivers/cortexM4/lpc43xx/inc/iap_18xx_43xx.h \
  externals/drivers/cortexM4/lpc43xx/inc/error.h \
  externals/drivers/cortexM4/lpc43xx/inc/i2cm_18xx_43xx.h \
- externals/drivers/cortexM4/lpc43xx/inc/fpu_init.h \
- projects/drivers_bm/inc/ccan.h projects/drivers_bm/inc/led.h
+ externals/drivers/cortexM4/lpc43xx/inc/fpu_init.h

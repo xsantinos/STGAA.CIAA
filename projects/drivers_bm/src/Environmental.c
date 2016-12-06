@@ -73,7 +73,7 @@ return SUCCESS;
 Status ENV_GetEnvironmental(ENV_ENVIRONMENTAL_T* pEnvironment){
 
 	pEnvironment->flow.on_off=myEnvironmental.flow.on_off;
-	pEnvironment->flow.value=myEnvironmental.flow.value;
+	pEnvironment->flow.value = myEnvironmental.flow.value;
 	pEnvironment->gps.lat_deegres=myEnvironmental.gps.lat_deegres;
 	pEnvironment->gps.lat_minutes=myEnvironmental.gps.lat_minutes;
 	pEnvironment->gps.lat_seconds=myEnvironmental.gps.lat_seconds;

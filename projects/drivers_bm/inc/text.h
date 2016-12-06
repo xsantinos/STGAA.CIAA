@@ -16,7 +16,7 @@
 #include <stdint.h>
 
 
-#define MAX_TEXT_LENGHT 20
+#define MAX_TEXT_LENGHT 25
 
 // *********************
 // Structures Definition
@@ -38,6 +38,8 @@ typedef struct typeText TText;
 // *******
 void GUI_Text_Create (TText* pText, char* _windowName, char* _name, uint16_t _xPos, uint16_t _yPos,
 					    char* _fontName, uint8_t _fontColor, char* _text);
+
+void GUI_Text_Edit(TText* pText, char* _text, uint8_t TextLength);
 
 void GUI_Text_Draw ( TText* pText );
 

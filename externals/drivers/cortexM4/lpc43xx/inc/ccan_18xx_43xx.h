@@ -338,7 +338,7 @@ typedef enum {
 
 /* bit field of IF command request n register */
 #define CCAN_IF_CMDREQ_MSG_NUM(n)  (n)			/* Message number (1->20) */
-#define CCAN_IF_CMDREQ_BUSY          0x8000			/* 1 is writing is progress, cleared when RD/WR done */
+#define CCAN_IF_CMDREQ_BUSY          0x8000			/* 1 is writing in progress, cleared when RD/WR done */
 
 /* bit field of IF command mask register */
 #define CCAN_IF_CMDMSK_DATAB        (1 << 0)		/** 1 is transfer data byte 4-7 to message object, 0 is not */
@@ -495,8 +495,15 @@ void Chip_CCAN_AddReceiveID(LPC_CCAN_T *pCCAN, CCAN_MSG_IF_T IFSel, uint32_t id)
 void Chip_CCAN_DeleteReceiveID(LPC_CCAN_T *pCCAN, CCAN_MSG_IF_T IFSel, uint32_t id);
 
 /**
- * @}
+ * @brief Register a message ID for receiving Plus, returns Message RAM position
+ * @param	IFSel	: The Message interface to be used
+ * @param	pCCAN		: The base of CCAN peripheral on the chip
+ * @param	id		: Received message ID to be removed
+ * @return	Nothing
  */
+uint8_t Chip_CCAN_AddReceiveID2(LPC_CCAN_T *pCCAN, CCAN_MSG_IF_T IFSel, uint32_t id);
+
+
 
 #ifdef __cplusplus
 }
